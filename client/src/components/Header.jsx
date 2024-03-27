@@ -31,7 +31,7 @@ function Header() {
         <button className="w-12 h-10 hidden sm:inline" color="gray">
           <FaMoon />
         </button>
-        <Link>
+        <Link className="hidden sm:block">
           <Button className="bg-red-500">Sign In</Button>
         </Link>
         <Navbar.Toggle />

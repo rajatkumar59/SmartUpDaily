@@ -6,7 +6,7 @@ import About from './pages/About'
 import SignIn from './pages/SignIn'
 import Header from './components/Header'
 import Projects from './pages/Projects'
-import SignUp from './pages/SignUp'
+import SignUp from './pages/SignUp1'
 
 
 function App() {

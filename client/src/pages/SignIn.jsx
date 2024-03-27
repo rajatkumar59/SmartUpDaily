@@ -1,13 +1,18 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import { useDispatch , useSelector } from "react-redux";
+import { signInStart , signInFailure ,signInSuccess } from "../redux/user/userSlice";
+
 
 function SignIn() {
 
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const {loading , error: errorMessage} = useSelector((state) => state.user);
+
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.id]: e.target.value.trim()});
@@ -16,14 +21,12 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!formData.username  || !formData.password){
-      setError("Please fill all the fields");
-      return;
+      return dispatch(signInFailure("Please fill all the fields"));
     }
     console.log(formData);
     console.log("handling submit")
     try {
-      setLoading(true);
-      setError(null);
+      dispatch(signInStart());
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -32,25 +35,25 @@ function SignIn() {
         body: JSON.stringify(formData),
       });
      console.log("in the try block");
-     setLoading(false);
 
       const data = await response.json();
       console.log(data); 
       if(data.success === false){
         console.log("in the if block of false")
-        return setError(data.message); 
+        dispatch(signInFailure(data.message));
+        return;
       }
       if(response.status === 201 && data.success === true){
         console.log("in the if block of true")
         
       }
+      dispatch(signInSuccess(data));
       navigate("/");
      
 
     } catch (error) {
         console.log("in the catch block")
-        setLoading(false);
-        setError(error.message)
+        dispatch(signInFailure(error.message));
     }
   } 
 
@@ -88,7 +91,7 @@ function SignIn() {
               </Link>
           </div>
           {
-            error && (<Alert className="mt-4" color="red">{error}</Alert>)
+            errorMessage && (<Alert className="mt-4" color="red">{errorMessage}</Alert>)
           }
         </div>
       </div>

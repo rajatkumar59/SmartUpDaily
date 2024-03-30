@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import OAuth from "../components/OAuth";
 
 function SignUp() {
 
@@ -37,14 +38,14 @@ function SignUp() {
 
       const data = await response.json();
       console.log(data); 
-      // if(data.success === false){
-      //   console.log("in the if block of false")
-      //   return setError(data.message); 
-      // }
-      // if(response.status === 201 && data.success === true){
-      //   console.log("in the if block of true")
+      if(data.success === false){
+        console.log("in the if block of false")
+        return setError(data.message); 
+      }
+      if(response.status === 201 && data.success === true){
+        console.log("in the if block of true")
         
-      // }
+      }
     } catch (error) {
         console.log("in the catch block")
         setLoading(false);
@@ -79,6 +80,7 @@ function SignUp() {
                 ) : "Sign Up"
               }
             </Button>
+            <OAuth />
           </form>
           <div className="block text-left mt-2 text-sm">
             <span className="mr-1">

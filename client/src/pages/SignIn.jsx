@@ -3,6 +3,7 @@ import { Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import { useDispatch , useSelector } from "react-redux";
 import { signInStart , signInFailure ,signInSuccess } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 
 function SignIn() {
@@ -81,13 +82,14 @@ function SignIn() {
                 ) : "Sign In"
               }
             </Button>
+            <OAuth />
           </form>
           <div className="block text-left mt-2 text-sm">
             <span className="mr-1">
               Don&apos;t have an account?  
             </span>
               <Link to="/signup" className="text-blue-500">
-                Sign In
+                Sign Up
               </Link>
           </div>
           {

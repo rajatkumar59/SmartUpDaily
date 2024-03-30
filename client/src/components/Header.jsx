@@ -13,7 +13,7 @@ function Header() {
           src={Logo}
           alt="Flowbite"
           className="lg:w-72 lg:h-10 md:w-40 md:h-10 sm:w-40 sm:h-10 w-30 h-8"
-          /// sizes are to be changed on the basis of screen size
+          /* sizes are to be changed on the basis of screen size*/
         />
       </Link>
       <form>
@@ -31,7 +31,7 @@ function Header() {
         <button className="w-12 h-10 hidden sm:inline" color="gray">
           <FaMoon />
         </button>
-        <Link className="hidden sm:block">
+        <Link to="/signin" className="hidden sm:block">
           <Button className="bg-red-500">Sign In</Button>
         </Link>
         <Navbar.Toggle />
